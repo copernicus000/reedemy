@@ -2,6 +2,7 @@
 
 namespace App\Modules\Reedemy\Data;
 
+use App\Modules\Requests\UserLoginRequest;
 use Spatie\LaravelData\Data;
 
 class UserData extends Data
@@ -14,13 +15,14 @@ class UserData extends Data
     ){
     }
 
-    public static function rules(): array
+    public static function fromRequest(UserLoginRequest $request): static
     {
-        return [
-            'name' => ['required'],
-            'email' => ['required','email'],
-            'password' => ['required'],
-
-        ];
+        return new self(
+          $request->name,
+          $request->email,
+          $request->password,
+        );
     }
+
+
 }

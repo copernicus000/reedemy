@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Reedemy\Controllers\SessionUserController;
 use App\Modules\Reedemy\Controllers\MainController;
 use App\Modules\Reedemy\Controllers\RegisterUserController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class,'index']);
 Route::get('/register', [RegisterUserController::class,'create']);
 Route::post('/register', [RegisterUserController::class,'store']);
+
+Route::get('/sessions', [SessionUserController::class,'create']);
+Route::post('/sessions',[SessionUserController::class,'store']);
+Route::post('/logout',[SessionUserController::class,'destroy']);
