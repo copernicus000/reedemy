@@ -4,6 +4,7 @@ namespace App\Modules\Reedemy\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Reedemy\Data\RedeemerData;
+use App\Modules\Reedemy\Helpers\VerifyCode;
 use App\Modules\Reedemy\Models\Redeemer;
 use App\Modules\Reedemy\Requests\RedeemCodeRequest;
 use App\Modules\Reedemy\Requests\RedeemerRequest;
@@ -17,6 +18,7 @@ class MainController extends Controller
 
     public function __construct(
         public VinylRegister $register,
+        public VerifyCode $verify,
     ){
 
     }
@@ -57,10 +59,9 @@ class MainController extends Controller
     {
         $redeemer = Redeemer::find($id);
 
-        //todo
-        if($request->code == $redeemer->code)
+        if($this->verify->isVerified($id,$request))
         {
-            return "acquired";
+            return $request->code;
         }
 
 
