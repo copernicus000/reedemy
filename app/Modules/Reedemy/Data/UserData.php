@@ -2,7 +2,7 @@
 
 namespace App\Modules\Reedemy\Data;
 
-use App\Modules\Requests\UserLoginRequest;
+use App\Modules\Reedemy\Requests\UserLoginRequest;
 use Spatie\LaravelData\Data;
 
 class UserData extends Data

@@ -16,10 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//user register
 Route::get('/', [MainController::class,'index']);
 Route::get('/register', [RegisterUserController::class,'create']);
 Route::post('/register', [RegisterUserController::class,'store']);
 
+//user session
 Route::get('/sessions', [SessionUserController::class,'create']);
 Route::post('/sessions',[SessionUserController::class,'store']);
 Route::post('/logout',[SessionUserController::class,'destroy']);
+
+Route::get('/redeemer/create',[MainController::class,'create']);
+Route::post('/redeemers', [MainController::class,'store']);
+
+Route::get('/redeemers/{id}', [MainController::class,'show']);
+Route::post('/redeemers/{id}/verify', [MainController::class,'verify'])->name('vinyl.verify');

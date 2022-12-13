@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Reedemy\Controllers;
 
 use App\Modules\Reedemy\Data\UserData;
-use App\Modules\Requests\UserLoginRequest;
+use App\Modules\Reedemy\Requests\UserLoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use PHPUnit\Exception;

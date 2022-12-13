@@ -8,8 +8,20 @@
             @csrf
             <button type="submit">Logout</button>
         </form>
+
+        <br/>
+        <div>
+            <a href="redeemer/create">Add new vinyl</a>
+            <br/>
+
+        </div>
     @endguest
 
 
-    index
+    <div>
+        @foreach($redeemers as $redeemer)
+            <a href="/redeemers/{{$redeemer->slug}}">{{$redeemer->name}}</a>
+            <br/>
+        @endforeach
+    </div>
 </x-layout>

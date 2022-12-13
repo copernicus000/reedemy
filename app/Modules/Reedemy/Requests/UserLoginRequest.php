@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Requests;
+namespace App\Modules\Reedemy\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

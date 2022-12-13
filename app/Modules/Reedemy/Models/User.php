@@ -6,6 +6,7 @@ namespace App\Modules\Reedemy\Models;
 
 use App\Modules\Reedemy\Data\UserData;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,6 +47,11 @@ class User extends Authenticatable
         $user->save();
 
         return $user;
+    }
+
+    public function redeemer(): HasMany
+    {
+        return $this->hasMany(Redeemer::class,'user_id');
     }
 
 }

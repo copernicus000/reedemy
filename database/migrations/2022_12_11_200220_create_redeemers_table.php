@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('redeemers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('author');
-
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('slug')->unique();
-            $table->string('code')->unique();
+            $table->string('file_path');
+            $table->string('code')->unique()->nullable();
+            $table->timestamp('expired_at')->nullable()->default(null);
 
             $table->timestamps();
         });
