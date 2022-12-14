@@ -4,28 +4,30 @@ namespace App\Modules\Reedemy\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Reedemy\Data\RedeemerData;
-use App\Modules\Reedemy\Helpers\VerifyCode;
+use App\Modules\Reedemy\Helpers\RemoveFileFromStorage;
 use App\Modules\Reedemy\Models\Redeemer;
-use App\Modules\Reedemy\Requests\RedeemCodeRequest;
 use App\Modules\Reedemy\Requests\RedeemerRequest;
+use App\Modules\Reedemy\Services\DeleteVinylService;
 use App\Modules\Reedemy\Services\VinylRegister;
+use App\Modules\Reedemy\Services\VinylUpdate;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MainController extends Controller
 {
 
     public function __construct(
-        public VinylRegister $register,
-        public VerifyCode $verify,
-    ){
-
+        private VinylRegister $register,
+        private VinylUpdate $updater,
+        private DeleteVinylService $deleteService,
+        private RemoveFileFromStorage $removeFile,
+    ) {
     }
+
     public function index(): View
     {
         $redeemers = Redeemer::get();
-        return view('index',compact('redeemers'));
+        return view('index', compact('redeemers'));
     }
 
     public function create(): View
@@ -35,7 +37,7 @@ class MainController extends Controller
 
     public function store(RedeemerRequest $request, RedeemerData $data): RedirectResponse
     {
-            $this->register->register($data, $request);
+        $this->register->register($data, $request);
 
         return redirect('/');
     }
@@ -50,36 +52,31 @@ class MainController extends Controller
     }
 
 
-    public function edit($id)
-    {
-       //
-    }
-
-    public function verify($id, RedeemCodeRequest $request)
+    public function edit($id): View
     {
         $redeemer = Redeemer::find($id);
-
-        if($this->verify->isVerified($id,$request))
-        {
-            return $request->code;
-        }
-
-
-
-
-
-
-        return redirect('/');
+        return view('redeemer.edit',[
+            'name' => $redeemer->name,
+            'slug' => $redeemer->slug,
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function update($id): RedirectResponse
     {
-        //
+//todo
+
+
+    }
+
+
+    public function destroy($id): RedirectResponse
+    {
+        //first delete data from storage
+        $this->removeFile->remove($id);
+
+        //then delete from database
+        $this->deleteService->destroy($id);
+
+        return redirect('/');
     }
 }

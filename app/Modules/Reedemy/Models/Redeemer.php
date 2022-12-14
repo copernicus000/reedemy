@@ -21,7 +21,7 @@ class Redeemer extends Model
         $redeemer->slug = $data->slug;
         $redeemer->user_id = $data->userid;
         $redeemer->file_path = $request->file('filepath')->store('public');
-        $redeemer->code = Str::random(6);
+        $redeemer->code = null;
 
         $redeemer->save();
 
