@@ -9,15 +9,21 @@ use App\Modules\Reedemy\Requests\RedeemerUpdateRequest;
 
 class VinylUpdate
 {
-    public function update($id, RedeemerUpdateRequest $request): void
+    public function update($id, RedeemerUpdateRequest $request): Redeemer
     {
         $redeemer = Redeemer::find($id);
 
-        $redeemer->update([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'file_path' => $request->filepath,
-        ]);
-        //$redeemer->save();
+
+
+        $redeemer->name = $request->name;
+        $redeemer->slug = $request->slug;
+        $redeemer->file_path = $request->file('filepath')->store('public');
+        //dd($redeemer->file_path);
+
+
+        $redeemer->save();
+
+        return $redeemer;
+
     }
 }

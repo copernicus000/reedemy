@@ -13,12 +13,12 @@ class RedeemerUpdateRequest extends FormRequest
         return true;
     }
 
-    public function rules():array
+    public function rules(): array
     {
         return [
-            'name'=>['required'],
-            'slug'=>['required'],
-            'filepath'=>['required','file'],
+            'name' => ['required'],
+            'slug' => ['required'],
+            'filepath' => ['required'],
         ];
     }
 }

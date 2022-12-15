@@ -18,25 +18,26 @@ use App\Modules\Reedemy\Controllers\TokenController;
 */
 
 //user register
-Route::get('/', [MainController::class,'index']);
-Route::get('/register', [RegisterUserController::class,'create']);
-Route::post('/register', [RegisterUserController::class,'store']);
+Route::get('/', [MainController::class, 'index']);
+Route::get('/register', [RegisterUserController::class, 'create']);
+Route::post('/register', [RegisterUserController::class, 'store']);
 
 //user session
-Route::get('/sessions', [SessionUserController::class,'create']);
-Route::post('/sessions',[SessionUserController::class,'store']);
-Route::post('/logout',[SessionUserController::class,'destroy']);
+Route::get('/sessions', [SessionUserController::class, 'create']);
+Route::post('/sessions', [SessionUserController::class, 'store']);
+Route::post('/logout', [SessionUserController::class, 'destroy']);
 
 //resource controller
-Route::get('/redeemer/create',[MainController::class,'create']);
-Route::post('/redeemers', [MainController::class,'store']);
-Route::get('/redeemers/{id}/edit', [MainController::class,'edit'])->name('vinyl.edit');
-Route::get('/redeemers/{id}', [MainController::class,'show']);
-Route::delete('/redeemers/{id}', [MainController::class,'destroy'])->name('vinyl.delete');
+Route::get('/redeemer/create', [MainController::class, 'create']);
+Route::post('/redeemers', [MainController::class, 'store']);
+Route::get('/redeemers/{id}/edit', [MainController::class, 'edit'])->name('vinyl.edit');
+Route::put('/redeemers/{id}', [MainController::class, 'update'])->name('vinyl.update');
+Route::get('/redeemers/{id}', [MainController::class, 'show'])->name('vinyl.show');
+Route::delete('/redeemers/{id}', [MainController::class, 'destroy'])->name('vinyl.delete');
 
 
 //token and download file if verified
-Route::post('/redeemers/{id}/verify', [TokenController::class,'verify'])->name('vinyl.verify');
-Route::post('/redeemers/{id}/confirm', [TokenController::class,'confirmPurchase'])->name('vinyl.confirm');
+Route::post('/redeemers/{id}/verify', [TokenController::class, 'verify'])->name('vinyl.verify');
+Route::post('/redeemers/{id}/confirm', [TokenController::class, 'confirmPurchase'])->name('vinyl.confirm');
 
 

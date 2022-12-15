@@ -20,7 +20,7 @@
 
     <div>
         @foreach($redeemers as $redeemer)
-            <a href="/redeemers/{{$redeemer->slug}}">{{$redeemer->name}}</a>
+            <a href="{{ route('vinyl.show', $redeemer->id) }}">{{$redeemer->name}}</a>
             <br/>
         @endforeach
     </div>

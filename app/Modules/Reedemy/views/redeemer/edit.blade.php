@@ -1,6 +1,7 @@
 <x-layout>
     <h3>Edit</h3>
-    <form action="" method="post">
+{{--    @dd($redeemer)--}}
+    <form action="{{ route('vinyl.update', $redeemer->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div>
@@ -9,7 +10,7 @@
             </label>
         </div>
         <div>
-            <input type="text" name="name" id="name" value="{{ $name }}" required>
+            <input type="text" name="name" id="name" value="{{ $redeemer->name }}" required>
         </div>
 
         <div>
@@ -18,7 +19,7 @@
             </label>
         </div>
         <div>
-            <input type="text" name="slug" id="slug" value="{{ $slug }}" required>
+            <input type="text" name="slug" id="slug" value="{{ $redeemer->slug }}" required>
         </div>
 
         <div>

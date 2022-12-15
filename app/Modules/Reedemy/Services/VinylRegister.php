@@ -13,7 +13,6 @@ class VinylRegister
 
     public function register(RedeemerData $data, RedeemerRequest $request): Redeemer
     {
-
         return Redeemer::register($data::fromRequest($request), $request);
     }
 }

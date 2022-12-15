@@ -7,6 +7,7 @@ use App\Modules\Reedemy\Data\RedeemerData;
 use App\Modules\Reedemy\Helpers\RemoveFileFromStorage;
 use App\Modules\Reedemy\Models\Redeemer;
 use App\Modules\Reedemy\Requests\RedeemerRequest;
+use App\Modules\Reedemy\Requests\RedeemerUpdateRequest;
 use App\Modules\Reedemy\Services\DeleteVinylService;
 use App\Modules\Reedemy\Services\VinylRegister;
 use App\Modules\Reedemy\Services\VinylUpdate;
@@ -26,8 +27,8 @@ class MainController extends Controller
 
     public function index(): View
     {
-        $redeemers = Redeemer::get();
-        return view('index', compact('redeemers'));
+        $redeemers = Redeemer::all();
+        return view('index', ['redeemers' => $redeemers]);
     }
 
     public function create(): View
@@ -45,7 +46,7 @@ class MainController extends Controller
 
     public function show($id): View
     {
-        $redeemer = Redeemer::where('slug', $id)->first();
+        $redeemer = Redeemer::find($id);
 
 
         return view('redeemer.show', ['redeemer' => $redeemer]);
@@ -55,17 +56,18 @@ class MainController extends Controller
     public function edit($id): View
     {
         $redeemer = Redeemer::find($id);
-        return view('redeemer.edit',[
-            'name' => $redeemer->name,
-            'slug' => $redeemer->slug,
+        //dd($redeemer);
+        return view('redeemer.edit', [
+            'redeemer' => $redeemer
         ]);
     }
 
-    public function update($id): RedirectResponse
+    public function update($id, RedeemerUpdateRequest $request): RedirectResponse
     {
-//todo
+        //dd($request);
+        $this->updater->update($id, $request);
 
-
+        return redirect('/');
     }
 
 
